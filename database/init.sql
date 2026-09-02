@@ -1,5 +1,4 @@
 CREATE DATABASE IF NOT EXISTS inti_punku;
-
 USE inti_punku;
 
 CREATE TABLE departamentos (
@@ -24,12 +23,8 @@ CREATE TABLE empleados (
     salario DECIMAL(10,2),
     id_departamento INT NOT NULL,
     id_cargo INT NOT NULL,
-
-    FOREIGN KEY (id_departamento)
-        REFERENCES departamentos(id_departamento),
-
-    FOREIGN KEY (id_cargo)
-        REFERENCES cargos(id_cargo)
+    FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento),
+    FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo)
 );
 
 INSERT INTO departamentos (nombre, ubicacion) VALUES
@@ -52,5 +47,4 @@ VALUES
 ('Ana', 'Quispe', 'ana@intipunku.com', '70000002', '2023-05-10', 6800, 2, 2),
 ('Luis', 'Condori', 'luis@intipunku.com', '70000003', '2025-02-01', 4500, 3, 3),
 ('María', 'Flores', 'maria@intipunku.com', '70000004', '2024-08-20', 6000, 4, 4),
-('José', 'Choque', 'jose@intipunku.com', '70000005', '2025-01-10', 4200, 2, 5),
-('Daniela', 'Rojas', 'daniela@intipunku.com', '70000006', '2023-11-05', 6300, 4, 4);
+('José', 'Choque', 'jose@intipunku.com', '70000005', '2025-01-10', 4200, 2, 5);
