@@ -1,0 +1,54 @@
+services:
+
+  proxy:
+    image: jomel42/inti-punku-proxy:1.0
+    ports:
+      - "8080:80"
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - proxy-frontend
+      - proxy-backend
+
+  frontend:
+    image: jomel42/inti-punku-frontend:1.0
+    networks:
+      - proxy-frontend
+
+  backend:
+    image: jomel42/inti-punku-backend:1.0
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root123
+      DB_NAME: inti_punku
+    depends_on:
+      - db
+    networks:
+      - proxy-backend
+      - backend-db
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: inti_punku
+    volumes:
+      - rrhh-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend-db
+
+networks:
+  proxy-frontend:
+    name: proxy-frontend
+
+  proxy-backend:
+    name: proxy-backend
+
+  backend-db:
+    name: backend-db
+
+volumes:
+  rrhh-data:
